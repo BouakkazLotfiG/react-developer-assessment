@@ -38,7 +38,10 @@ const Users = () => {
 
   return (
     <div>
-      <DataTable data={users} columns={userColumns} />
+      <DataTable
+        data={users} // Your data array
+        columns={userColumns} // Your columns configuration
+      />
     </div>
   );
 };

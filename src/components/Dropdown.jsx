@@ -1,17 +1,17 @@
-function Dropdown({ pageSizeOptions, selectedPageSize, onSelectPageSize }) {
+const Dropdown = ({ options, selectedValue, onChange }) => {
   return (
     <select
-      className='bg-gray-300 text-gray-700 px-2 py-1 rounded'
-      value={selectedPageSize}
-      onChange={(e) => onSelectPageSize(Number(e.target.value))}
+      className='p-2 rounded border border-gray-300'
+      value={selectedValue}
+      onChange={onChange}
     >
-      {pageSizeOptions.map((pageSize) => (
-        <option key={pageSize} value={pageSize}>
-          {pageSize}
+      {options.map((option) => (
+        <option key={option} value={option}>
+          {option}
         </option>
       ))}
     </select>
   );
-}
+};
 
 export default Dropdown;

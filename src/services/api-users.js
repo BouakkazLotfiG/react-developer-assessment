@@ -7,7 +7,9 @@ const axiosInstance = axios.create({
 });
 
 const getUsers = (params) => {
-  return axiosInstance.get('/users', { params });
+  const res = axiosInstance.get('/users', { params });
+  // console.log('res', res);
+  return res;
 };
 
 export { getUsers };
