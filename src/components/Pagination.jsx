@@ -1,28 +1,52 @@
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+import { useAppContext } from '../context/AppContext';
+
+const Pagination = () => {
+  const { currentPage, total, pageSize, setCurrentPage } = useAppContext();
+
+  const totalPages = Math.ceil(total / pageSize);
+  console.log('totalPages', totalPages);
+  console.log('total', total);
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <span
+          key={i}
+          onClick={() => handlePageChange(i)}
+          className={`px-3 py-1 cursor-pointer ${
+            currentPage === i ? 'bg-blue-500 text-white' : 'bg-gray-200'
+          } rounded`}
+        >
+          {i}
+        </span>
+      );
+    }
+
+    return pageNumbers;
+  };
+
   return (
-    <div className='my-4 flex justify-between items-center'>
+    <div className='flex justify-center mt-4'>
       <button
-        className={`${
-          currentPage === 1
-            ? 'opacity-50 cursor-not-allowed'
-            : 'opacity-100 cursor-pointer'
-        } bg-blue-500 text-white px-3 py-1 rounded`}
-        onClick={() => onPageChange(currentPage - 1)}
+        onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
+        className='px-3 py-1 mr-2 bg-blue-500 text-white rounded'
       >
         Previous
       </button>
-      <span className='text-gray-600'>
-        Page {currentPage} of {totalPages}
-      </span>
+      {renderPageNumbers()}
       <button
-        className={`${
-          currentPage === totalPages
-            ? 'opacity-50 cursor-not-allowed'
-            : 'opacity-100 cursor-pointer'
-        } bg-blue-500 text-white px-3 py-1 rounded`}
-        onClick={() => onPageChange(currentPage + 1)}
+        onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
+        className='px-3 py-1 ml-2 bg-blue-500 text-white rounded'
       >
         Next
       </button>

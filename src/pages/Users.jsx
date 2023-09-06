@@ -1,47 +1,67 @@
-import { useEffect, useState } from 'react';
-import { getUsers } from '../services/api-users';
+// UsersPage.js
+import { useEffect } from 'react';
+import Filters from '../components/Filters';
 import DataTable from '../components/DataTable';
+import Pagination from '../components/Pagination';
 
-const userColumns = [
-  { key: 'firstName', header: 'First Name' },
-  { key: 'lastName', header: 'last Name' },
-  { key: 'maideName', header: 'maide Name' },
-  { key: 'age', header: 'age' },
-  { key: 'gender', header: 'gender' },
-  { key: 'email', header: 'email' },
-  { key: 'userName', header: 'user Name' },
-  { key: 'bloodGroup', header: 'blood Group' },
-  { key: 'eyeColor', header: 'eye Color' },
-];
+import { fetchUsers } from '../services/api-users';
+import { useAppContext } from '../context/AppContext';
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
-  const [pageSize, setPageSize] = useState(5);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchValue, setSearchValue] = useState('');
-  useEffect(() => {
-    // Function to fetch users based on filters
-    async function fetchUsers() {
-      try {
-        const response = await getUsers({
-          _limit: 5,
-          _page: 1,
-        });
-        setUsers(response.data.users);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    }
+  const { pageSize, searchValue, data, currentPage, setData, setTotal, total } =
+    useAppContext();
 
-    fetchUsers();
-  }, [pageSize, currentPage, searchValue]);
+  // Function to fetch users data based on current filters and pagination
+  const fetchData = async () => {
+    try {
+      const userData = await fetchUsers(pageSize, searchValue, currentPage);
+      // Update the data in the context with the fetched data
+      // This will trigger a re-render of the DataTable component
+      setData(userData.users);
+      setTotal(userData.total);
+    } catch (error) {
+      // Handle errors here, e.g., show an error message
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+  // Use useEffect to fetch data when the component mounts and whenever filters or page change
+  useEffect(() => {
+    fetchData();
+  }, [pageSize, searchValue, currentPage]);
+
+  // Define the columns for the DataTable
+  const userColumn = [
+    {
+      id: 'firstName',
+      label: 'First Name',
+    },
+    {
+      id: 'lastName',
+      label: 'Last Name',
+    },
+    {
+      id: 'maidenName',
+      label: 'Maiden Name',
+    },
+    {
+      id: 'age',
+      label: 'age',
+    },
+    {
+      id: 'gender',
+      label: 'gender',
+    },
+  ];
+
+  console.log('data', data);
 
   return (
     <div>
-      <DataTable
-        data={users} // Your data array
-        columns={userColumns} // Your columns configuration
-      />
+      <h1>Home/Users</h1>
+      <Filters />
+      <DataTable columns={userColumn} data={data} />
+      <Pagination total={total} />
     </div>
   );
 };
