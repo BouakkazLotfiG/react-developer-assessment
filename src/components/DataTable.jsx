@@ -5,6 +5,7 @@ const DataTable = ({ columns, data }) => {
         <tr>
           {columns.map((column) => (
             <th
+              width='250px'
               key={column.id}
               className='text-left px-4 py-2 border-4 border-grey'
             >

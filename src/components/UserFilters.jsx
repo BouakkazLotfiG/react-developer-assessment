@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import UserSearch from './UserSearch';
+import DropDown from './Dropdown';
 
 const UserFilters = ({ users, setFilteredUsers }) => {
   const {
@@ -57,20 +58,10 @@ const UserFilters = ({ users, setFilteredUsers }) => {
 
   return (
     <div className='flex justify-start items-center w-1/2 '>
-      <div className='flex gap-3 border-r-2 border-slate-400 pr-8'>
-        <select
-          id='pageSize'
-          value={pageSize}
-          onChange={handlePageSizeChange}
-          className='px-2 py-1 bg-white'
-        >
-          <option value='5'>5</option>
-          <option value='10'>10</option>
-          <option value='20'>20</option>
-          <option value='50'>50</option>
-        </select>
-        Entries
-      </div>
+      <DropDown
+        pageSize={pageSize}
+        handlePageSizeChange={handlePageSizeChange}
+      />
       <UserSearch users={users} setFilteredUsers={setFilteredUsers} />
 
       <div className='w-full flex items-center'>

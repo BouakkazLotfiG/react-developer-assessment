@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const UserSearch = ({ users, setFilteredUsers }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -14,7 +14,6 @@ const UserSearch = ({ users, setFilteredUsers }) => {
     // Filter the users array based on the search query
     const filteredUsers = users.filter(
       (user) =>
-        // You can adjust the conditions here to search through different fields
         user.firstName.toLowerCase().includes(query.toLowerCase()) ||
         user.lastName.toLowerCase().includes(query.toLowerCase()) ||
         user.email.toLowerCase().includes(query.toLowerCase()) ||

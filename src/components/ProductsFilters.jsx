@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import ProductSearch from './ProductSearch';
+import DropDown from './Dropdown';
 
 const ProductsFilters = ({ products, setFilteredProducts }) => {
   const {
@@ -48,21 +49,10 @@ const ProductsFilters = ({ products, setFilteredProducts }) => {
   };
   return (
     <div className='flex justify-start items-center w-2/3 '>
-      <div className='flex gap-3 border-r-2 border-slate-400 pr-8'>
-        <select
-          id='pageSize'
-          value={pageSize}
-          onChange={handlePageSizeChange}
-          className='px-2 py-1 bg-white'
-        >
-          <option value='5'>5</option>
-          <option value='10'>10</option>
-          <option value='20'>20</option>
-          <option value='50'>50</option>
-        </select>
-        Entries
-      </div>
-
+      <DropDown
+        pageSize={pageSize}
+        handlePageSizeChange={handlePageSizeChange}
+      />
       <ProductSearch
         products={products}
         setFilteredProducts={setFilteredProducts}

@@ -1,14 +1,14 @@
 // UsersPage.js
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { IconChevronLeft } from '@tabler/icons-react';
+
 import UserFilters from '../components/UserFilters';
 import DataTable from '../components/DataTable';
 import Pagination from '../components/Pagination';
 
 import { fetchUsers } from '../services/api-users';
 import { useAppContext } from '../context/AppContext';
-import UserSearch from '../components/UserSearch';
-import { Link } from 'react-router-dom';
-import { IconChevronLeft } from '@tabler/icons-react';
 
 const Users = () => {
   const {
@@ -37,8 +37,6 @@ const Users = () => {
         emailFilter,
         birthdayFilter
       );
-      // Update the data in the context with the fetched data
-      // This will trigger a re-render of the DataTable component
       setData(userData.users);
       setTotal(userData.total);
       setFilteredUsers(userData.users);
@@ -61,7 +59,6 @@ const Users = () => {
     birthdayFilter,
   ]);
 
-  // Define the columns for the DataTable
   const userColumn = [
     {
       id: 'firstName',

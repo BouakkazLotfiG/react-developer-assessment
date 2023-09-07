@@ -1,13 +1,14 @@
 // UsersPage.js
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { IconChevronLeft } from '@tabler/icons-react';
+
 import ProductsFilters from '../components/ProductsFilters';
 import DataTable from '../components/DataTable';
 import Pagination from '../components/Pagination';
 
 import { fetchProducts } from '../services/api-products';
 import { useAppContext } from '../context/AppContext';
-import { IconChevronLeft } from '@tabler/icons-react';
-import { Link } from 'react-router-dom';
 
 const Products = () => {
   const {
@@ -54,7 +55,6 @@ const Products = () => {
     brandFilter,
   ]);
 
-  // Define the columns for the DataTable
   const userColumn = [
     {
       id: 'title',
@@ -85,7 +85,6 @@ const Products = () => {
       label: 'category',
     },
   ];
-  console.log(filteredProducts);
 
   return (
     <div className='flex flex-col gap-8 p-8'>

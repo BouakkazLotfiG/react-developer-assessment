@@ -1,3 +1,4 @@
+import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 import { useAppContext } from '../context/AppContext';
 
 const Pagination = () => {
@@ -97,7 +98,7 @@ const Pagination = () => {
         disabled={currentPage === 1}
         className='px-3 py-1 mr-2 bg-blue-500 text-black rounded'
       >
-        Previous
+        <IconArrowLeft />
       </button>
       {renderPageNumbers()}
       <button
@@ -105,7 +106,7 @@ const Pagination = () => {
         disabled={currentPage === totalPages}
         className='px-3 py-1 ml-2 bg-blue-500 text-black rounded'
       >
-        Next
+        <IconArrowRight />
       </button>
     </div>
   );

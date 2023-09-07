@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const ProductSearch = ({ products, setFilteredProducts }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -14,7 +14,6 @@ const ProductSearch = ({ products, setFilteredProducts }) => {
     // Filter the users array based on the search query
     const filteredProducts = products.filter(
       (user) =>
-        // You can adjust the conditions here to search through different fields
         user.brand.toLowerCase().includes(query.toLowerCase()) ||
         user.category.toLowerCase().includes(query.toLowerCase()) ||
         user.title.toLowerCase().includes(query.toLowerCase())
