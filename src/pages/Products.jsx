@@ -6,6 +6,8 @@ import Pagination from '../components/Pagination';
 
 import { fetchProducts } from '../services/api-products';
 import { useAppContext } from '../context/AppContext';
+import { IconChevronLeft } from '@tabler/icons-react';
+import { Link } from 'react-router-dom';
 
 const Products = () => {
   const {
@@ -86,8 +88,13 @@ const Products = () => {
   console.log(filteredProducts);
 
   return (
-    <div className='flex flex-col gap-8 '>
-      <h1>Home/Products</h1>
+    <div className='flex flex-col gap-8 p-8'>
+      <div className='flex items-center gap-4'>
+        <Link to='/'>
+          <IconChevronLeft size={20} />
+        </Link>
+        <h1>Home/Products</h1>
+      </div>
       <ProductsFilters
         products={data}
         setFilteredProducts={setFilteredProducts}

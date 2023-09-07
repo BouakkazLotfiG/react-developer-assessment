@@ -7,7 +7,7 @@ import Home from './pages/Home';
 function App() {
   return (
     <Router>
-      <div className=' p-8 min-h-screen'>
+      <>
         {/* navigation */}
 
         <Routes>
@@ -18,7 +18,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
-      </div>
+      </>
     </Router>
   );
 }

@@ -7,6 +7,8 @@ import Pagination from '../components/Pagination';
 import { fetchUsers } from '../services/api-users';
 import { useAppContext } from '../context/AppContext';
 import UserSearch from '../components/UserSearch';
+import { Link } from 'react-router-dom';
+import { IconChevronLeft } from '@tabler/icons-react';
 
 const Users = () => {
   const {
@@ -104,8 +106,13 @@ const Users = () => {
   ];
 
   return (
-    <div className='flex flex-col gap-8 '>
-      <h1>Home/Users</h1>
+    <div className='flex flex-col gap-8 p-8 '>
+      <div className='flex items-center gap-4'>
+        <Link to='/'>
+          <IconChevronLeft size={20} />
+        </Link>
+        <h1>Home/Users</h1>
+      </div>
       <UserFilters users={data} setFilteredUsers={setFilteredUsers} />
 
       <DataTable columns={userColumn} data={filteredUsers} />
