@@ -1,24 +1,45 @@
 // UsersPage.js
-import { useEffect } from 'react';
-import Filters from '../components/Filters';
+import { useEffect, useState } from 'react';
+import UserFilters from '../components/UserFilters';
 import DataTable from '../components/DataTable';
 import Pagination from '../components/Pagination';
 
 import { fetchUsers } from '../services/api-users';
 import { useAppContext } from '../context/AppContext';
+import UserSearch from '../components/UserSearch';
 
 const Users = () => {
-  const { pageSize, searchValue, data, currentPage, setData, setTotal, total } =
-    useAppContext();
+  const {
+    pageSize,
+    searchValue,
+    data,
+    currentPage,
+    setData,
+    setTotal,
+    total,
+    genderFilter,
+    firstNameFilter,
+    emailFilter,
+    birthdayFilter,
+  } = useAppContext();
+  const [filteredUsers, setFilteredUsers] = useState(data);
 
   // Function to fetch users data based on current filters and pagination
   const fetchData = async () => {
     try {
-      const userData = await fetchUsers(pageSize, searchValue, currentPage);
+      const userData = await fetchUsers(
+        pageSize,
+        currentPage,
+        genderFilter,
+        firstNameFilter,
+        emailFilter,
+        birthdayFilter
+      );
       // Update the data in the context with the fetched data
       // This will trigger a re-render of the DataTable component
       setData(userData.users);
       setTotal(userData.total);
+      setFilteredUsers(userData.users);
     } catch (error) {
       // Handle errors here, e.g., show an error message
       console.error('Error fetching user data:', error);
@@ -28,7 +49,15 @@ const Users = () => {
   // Use useEffect to fetch data when the component mounts and whenever filters or page change
   useEffect(() => {
     fetchData();
-  }, [pageSize, searchValue, currentPage]);
+  }, [
+    pageSize,
+    searchValue,
+    currentPage,
+    genderFilter,
+    firstNameFilter,
+    emailFilter,
+    birthdayFilter,
+  ]);
 
   // Define the columns for the DataTable
   const userColumn = [
@@ -52,15 +81,34 @@ const Users = () => {
       id: 'gender',
       label: 'gender',
     },
+    {
+      id: 'email',
+      label: 'Email',
+    },
+    {
+      id: 'username',
+      label: 'user name',
+    },
+    {
+      id: 'birthDate',
+      label: 'Birth Date',
+    },
+    {
+      id: 'bloodGroup',
+      label: 'blood Group',
+    },
+    {
+      id: 'eyeColor',
+      label: 'Eye Color',
+    },
   ];
 
-  console.log('data', data);
-
   return (
-    <div>
+    <div className='flex flex-col gap-8 '>
       <h1>Home/Users</h1>
-      <Filters />
-      <DataTable columns={userColumn} data={data} />
+      <UserFilters users={data} setFilteredUsers={setFilteredUsers} />
+
+      <DataTable columns={userColumn} data={filteredUsers} />
       <Pagination total={total} />
     </div>
   );

@@ -1,20 +1,23 @@
 const DataTable = ({ columns, data }) => {
   return (
-    <table className='table-auto w-full'>
-      <thead>
+    <table className='table-auto w-full border-4 border-grey'>
+      <thead className='bg-blue p-2'>
         <tr>
           {columns.map((column) => (
-            <th key={column.id} className='px-4 py-2'>
-              {column.label}
+            <th
+              key={column.id}
+              className='text-left px-4 py-2 border-4 border-grey'
+            >
+              {column.label.toUpperCase()}
             </th>
           ))}
         </tr>
       </thead>
-      <tbody>
+      <tbody className='border-4 border-grey'>
         {data.map((row) => (
           <tr key={row.id}>
             {columns.map((column) => (
-              <td key={column.field} className='px-4 py-2'>
+              <td key={column.id} className='px-4 py-2 border-4 border-grey'>
                 {row[column.id]}
               </td>
             ))}

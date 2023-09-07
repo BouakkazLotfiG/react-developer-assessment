@@ -13,11 +13,31 @@ export const AppProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [genderFilter, setGenderFilter] = useState(''); // Add gender filter state
+  const [categoryFilter, setCategoryFilter] = useState(''); // Add category filter state
+  const [firstNameFilter, setFirstNameFilter] = useState('');
+  const [emailFilter, setEmailFilter] = useState('');
+  const [birthdayFilter, setBirthdayFilter] = useState('');
+  const [titleFilter, setTitleFilter] = useState('');
+  const [brandFilter, setBrandFilter] = useState('');
 
   useEffect(() => {
     // Fetch data from the API using Axios and set it to the 'data' state.
     // You can use api-users.js and api-products.js here.
-  }, [pageSize, searchValue, currentPage, data, total]);
+  }, [
+    pageSize,
+    searchValue,
+    currentPage,
+    data,
+    total,
+    genderFilter,
+    firstNameFilter,
+    emailFilter,
+    birthdayFilter,
+    categoryFilter,
+    titleFilter,
+    brandFilter,
+  ]);
 
   const contextValue = {
     pageSize,
@@ -30,6 +50,20 @@ export const AppProvider = ({ children }) => {
     total,
     setTotal,
     setData,
+    genderFilter,
+    setGenderFilter,
+    categoryFilter,
+    setCategoryFilter,
+    firstNameFilter,
+    setFirstNameFilter,
+    emailFilter,
+    setEmailFilter,
+    birthdayFilter,
+    setBirthdayFilter,
+    titleFilter,
+    setTitleFilter,
+    brandFilter,
+    setBrandFilter,
   };
 
   return (

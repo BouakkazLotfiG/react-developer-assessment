@@ -7,7 +7,7 @@ import Home from './pages/Home';
 function App() {
   return (
     <Router>
-      <div className='bg-gray-200 p-8 min-h-screen'>
+      <div className=' p-8 min-h-screen'>
         {/* navigation */}
 
         <Routes>

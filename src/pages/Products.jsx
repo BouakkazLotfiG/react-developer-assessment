@@ -1,6 +1,6 @@
 // UsersPage.js
-import { useEffect } from 'react';
-import Filters from '../components/Filters';
+import { useEffect, useState } from 'react';
+import ProductsFilters from '../components/ProductsFilters';
 import DataTable from '../components/DataTable';
 import Pagination from '../components/Pagination';
 
@@ -8,25 +8,49 @@ import { fetchProducts } from '../services/api-products';
 import { useAppContext } from '../context/AppContext';
 
 const Products = () => {
-  const { pageSize, searchValue, data, currentPage, setData } = useAppContext();
+  const {
+    pageSize,
+    searchValue,
+    data,
+    currentPage,
+    setData,
+    setTotal,
+    total,
+    categoryFilter,
+    titleFilter,
+    brandFilter,
+  } = useAppContext();
+  const [filteredProducts, setFilteredProducts] = useState(data);
 
-  // Function to fetch users data based on current filters and pagination
   const fetchData = async () => {
     try {
-      const userData = await fetchProducts(pageSize, searchValue, currentPage);
-      // Update the data in the context with the fetched data
-      // This will trigger a re-render of the DataTable component
+      const userData = await fetchProducts(
+        pageSize,
+        currentPage,
+        categoryFilter,
+        titleFilter,
+        brandFilter
+      );
+
       setData(userData.products);
+      setTotal(userData.total);
+      setFilteredProducts(userData.products);
     } catch (error) {
       // Handle errors here, e.g., show an error message
       console.error('Error fetching user data:', error);
     }
   };
 
-  // Use useEffect to fetch data when the component mounts and whenever filters or page change
   useEffect(() => {
     fetchData();
-  }, [pageSize, searchValue, currentPage]);
+  }, [
+    pageSize,
+    searchValue,
+    currentPage,
+    categoryFilter,
+    titleFilter,
+    brandFilter,
+  ]);
 
   // Define the columns for the DataTable
   const userColumn = [
@@ -43,6 +67,10 @@ const Products = () => {
       label: 'rating',
     },
     {
+      id: 'discountPercentage',
+      label: 'discount Percentage',
+    },
+    {
       id: 'stock',
       label: 'stock',
     },
@@ -50,15 +78,23 @@ const Products = () => {
       id: 'brand',
       label: 'brand',
     },
+    {
+      id: 'category',
+      label: 'category',
+    },
   ];
-  console.log(data);
+  console.log(filteredProducts);
 
   return (
-    <div>
+    <div className='flex flex-col gap-8 '>
       <h1>Home/Products</h1>
-      <Filters />
-      <DataTable columns={userColumn} data={data} />
-      <Pagination />
+      <ProductsFilters
+        products={data}
+        setFilteredProducts={setFilteredProducts}
+      />
+
+      <DataTable columns={userColumn} data={filteredProducts} />
+      <Pagination total={total} />
     </div>
   );
 };
