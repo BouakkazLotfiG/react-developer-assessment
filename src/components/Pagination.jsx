@@ -5,6 +5,11 @@ const Pagination = () => {
 
   const totalPages = Math.ceil(total / pageSize);
 
+  // If there's only one page, return null to hide the pagination
+  if (totalPages <= 1) {
+    return null;
+  }
+
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);

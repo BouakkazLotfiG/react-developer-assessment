@@ -26,7 +26,7 @@ const Home = () => {
       </div>
 
       <div className='mt-auto mb-4'>
-        <p className='text-gray'>
+        <p className='text-gray text-center'>
           Thank you for letting me be part of this React Assessment test. I
           thoroughly enjoyed making every component, especially with this
           beautiful font, Looking foward for your review - Lotfi -
